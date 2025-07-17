@@ -206,13 +206,21 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Get current day and set up the schedule
-    // Removed 'sunday' and 'saturday' from the arrays
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+    const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const now = new Date();
-    const currentDayIndex = now.getDay();
+    // Adjust currentDayIndex as Sunday (0) and Saturday (6) are no longer in the array
+    let currentDayIndex = now.getDay();
+    if (currentDayIndex === 0) { // If Sunday, default to Monday
+        currentDayIndex = 1;
+    } else if (currentDayIndex === 6) { // If Saturday, default to Friday
+        currentDayIndex = 5;
+    }
+    // Adjust to be 0-indexed for the new 'days' array
+    currentDayIndex = (currentDayIndex === 1) ? 0 : (currentDayIndex === 2) ? 1 : (currentDayIndex === 3) ? 2 : (currentDayIndex === 4) ? 3 : (currentDayIndex === 5) ? 4 : 0; // Simplified for Monday-Friday
+    
     let currentDay = days[currentDayIndex];
 
     // Set up date display (Always for the current day)
@@ -341,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (currentTimeInSeconds >= startTimeInSeconds && currentTimeInSeconds < (endTimeInSeconds - 60)) {
                 item.classList.add('current');
                 currentClassFound = true;
-                currentClassText.textContent = `${classData.code} ends in ${Math.ceil((endTimeInSeconds - currentTimeInSeconds) / 60)} minutes!`;
+                currentClassText.textContent = `${classData.name} ends in ${Math.ceil((endTimeInSeconds - currentTimeInSeconds) / 60)} minutes!`;
                 currentClassBanner.style.display = 'flex';
                 timeLeftText.textContent = '';
                 break; // Found the current class, no need to check further for banner
@@ -354,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (nextClassData) {
                     const [nextStartTimeInMinutes] = parseTimeRange(nextClassData.time);
                     const timeToNextMinutes = Math.max(0, nextStartTimeInMinutes - currentTimeInMinutes);
-                    currentClassText.textContent = `Next: ${nextClassData.code} ${nextClassData.type} at ${nextClassData.location} in ${timeToNextMinutes} minutes.`;
+                    currentClassText.textContent = `Next: ${nextClassData.name} at ${nextClassData.location} in ${timeToNextMinutes} minutes.`; // Removed type
                     currentClassBanner.style.display = 'flex';
                     timeLeftText.textContent = '';
                 } else {
@@ -365,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Case 3: Find the first upcoming class if no current/transitioning class found yet
             else if (currentTimeInSeconds < startTimeInSeconds && !currentClassFound && !firstUpcomingClassFound) {
                 const timeToNextMinutes = Math.max(0, startTimeInMinutes - currentTimeInMinutes);
-                currentClassText.textContent = `Next: ${classData.code} ${classData.type} at ${classData.location} in ${timeToNextMinutes} minutes.`;
+                currentClassText.textContent = `Next: ${classData.name} at ${classData.location} in ${timeToNextMinutes} minutes.`; // Removed type
                 currentClassBanner.style.display = 'flex';
                 timeLeftText.textContent = '';
                 firstUpcomingClassFound = true;
@@ -430,7 +438,18 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(() => {
         const newDayIndex = new Date().getDay();
         const updatedNow = new Date();
-        const updatedCurrentDay = days[newDayIndex];
+        // Adjust for new 'days' array indexing
+        let adjustedNewDayIndex = newDayIndex;
+        if (adjustedNewDayIndex === 0) { // Sunday
+            adjustedNewDayIndex = 0; // Default to Monday's index in the new array (0)
+        } else if (adjustedNewDayIndex === 6) { // Saturday
+            adjustedNewDayIndex = 4; // Default to Friday's index in the new array (4)
+        } else { // Monday-Friday (1-5) becomes 0-4
+             adjustedNewDayIndex = adjustedNewDayIndex - 1;
+        }
+
+        const updatedCurrentDay = days[adjustedNewDayIndex];
+
 
         // Only update currentDay variable if the day has actually changed
         if (updatedCurrentDay !== currentDay) {
