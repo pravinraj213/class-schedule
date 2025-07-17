@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return; // Banner set, exit
             }
             // Scenario 2: Class is in its last minute OR has just ended (transition to next class info)
-            // Display: "Next: subject code class/lab at venue in xx minutes."
+            // Display: "Up next: subject code class/lab at venue in xx minutes."
             // Condition: current time is within (end - 1 minute) and end time of this class, or slightly after
             else if (currentTimeInSeconds >= (endTimeInSeconds - 60) && currentTimeInSeconds < (endTimeInSeconds + 60)) { // up to 1 min after end
                 currentClassFound = true; // Mark as found to prevent falling into "upcomingNextClass" logic
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (nextClassData) {
                     const [nextStartTimeInMinutes] = parseTimeRange(nextClassData.time);
                     const timeToNextMinutes = Math.max(0, nextStartTimeInMinutes - currentTimeInMinutes);
-                    currentClassText.textContent = `Next: ${nextClassData.code} ${nextClassData.type} at ${nextClassData.location} in ${timeToNextMinutes} minutes.`;
+                    currentClassText.textContent = `Up next: ${nextClassData.code} ${nextClassData.type} at ${nextClassData.location} in ${timeToNextMinutes} minutes.`;
                     currentClassBanner.style.display = 'flex';
                     timeLeftText.textContent = ''; // Clear timeLeftText for this format
                 } else {

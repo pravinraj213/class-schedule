@@ -2,7 +2,6 @@
 :root {
   --primary-color: #6a1b9a;
   --primary-light: rgba(108, 28, 156, 0.1);
-  --secondary-color: #000101;
   --accent-color: #b57edc;
 
   --text-color: #6a1b9a; /* Main text color for light theme */
@@ -21,7 +20,7 @@
 
   --border-radius: 1rem; /* Significantly more rounded corners for new box type */
   --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04); /* Softer, more pronounced shadow */
-  --transition: all 0.3s ease;
+  --transition: all 0.3s ease-in-out; /* Enhanced transition for smooth state changes */
   --border-color: rgba(108, 28, 156, 0.15); /* Lighter border color for a subtle look */
 }
 
@@ -135,9 +134,10 @@ body {
   font-weight: 600;
 }
 
-.current-class-info i {
+/* Removed specific icon styling as the icon is removed from HTML */
+/* .current-class-info i {
   font-size: 1.25rem;
-}
+} */
 
 .time-left {
   background-color: rgba(255, 255, 255, 0.2);
@@ -163,15 +163,25 @@ body {
   border: 1px solid var(--border-color); /* Uses :root border-color based on theme */
   position: relative;
   overflow: hidden;
-  transition: var(--transition);
+  transition: var(--transition); /* Apply transition to all relevant properties */
 }
 
-/* No specific class-type borders */
+/* Current Class Highlighting */
 .class-item.current {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.15), 0 5px 10px -2px rgba(0, 0, 0, 0.08);
-  border: 2px solid var(--primary-color);
+  transform: translateY(-5px) scale(1.01); /* More pronounced lift and subtle scale */
+  box-shadow: 0 15px 35px -8px rgba(0, 0, 0, 0.2), 0 5px 15px -3px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  border: 2px solid var(--primary-color); /* Clear border highlight */
 }
+
+/* Dim Past Classes */
+.class-item.past {
+    opacity: 0.6; /* Dim the past classes */
+    filter: grayscale(30%); /* Optional: Adds a slight desaturated look */
+    border: 1px solid var(--border-color); /* Ensure border goes back to normal */
+    box-shadow: none; /* Remove shadow */
+    transform: none; /* Ensure no lift/scale */
+}
+
 
 .class-time {
   display: flex;
@@ -312,18 +322,11 @@ body {
     --border-color: rgba(108, 28, 156, 0.3); /* Ensure consistency for dark mode borders */
   }
 
-  /* Specific dark mode adjustments for elements using the new text colors */
   .day-dropdown {
     background-color: #2d2d2d; /* Slightly lighter than card-bg for contrast */
     color: var(--text-color); /* Uses new dark mode text-color */
     border-color: #3d3d3d;
   }
-
-  /* These elements now correctly inherit from :root --text-light */
-  /*
-  .meta-item { color: #d1d5db; }
-  .class-time, .class-code { color: #a78bfa; }
-  */
 
   .app-footer.private-note {
     background-color: #1a1a1a;
@@ -346,7 +349,7 @@ body {
   outline-offset: 2px;
 }
 
-/* Loading Spinner */
+/* Loading Spinner (No change, as not directly used in the current UI logic) */
 .loading-spinner {
   display: inline-block;
   width: 1.5rem;
