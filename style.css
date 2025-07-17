@@ -1,11 +1,11 @@
 /* style.css – Updated with completely different box type, no specific edge colors, and unified colors for lab/theory */
 :root {
-  --primary-color: #3e0f5d;
+  --primary-color: #6a1b9a;
   --primary-light: rgba(108, 28, 156, 0.1);
   --secondary-color: #000101;
   --accent-color: #b57edc;
 
-  --text-color: #3e0f5d; /* Main text color for light theme */
+  --text-color: #6a1b9a; /* Main text color for light theme */
   --text-light: #64748b; /* Light text color for light theme */
   --background-color: #ffffff; /* Light theme background */
   --card-bg: #ffffff;
