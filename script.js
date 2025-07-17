@@ -299,7 +299,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const now = new Date();
         const currentHour = now.getHours();
         const currentMinute = now.getMinutes();
-        const currentTime = currentHour * 60 + currentMinute;
+        const currentSecond = now.getSeconds();
+        const currentTimeInMinutes = currentHour * 60 + currentMinute;
+        const currentTimeInSeconds = currentTimeInMinutes * 60 + currentSecond;
 
         const currentClassBanner = document.getElementById('currentClassBanner');
         const currentClassText = document.getElementById('currentClassText');
@@ -307,70 +309,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const todaySchedule = schedule[days[now.getDay()]] || [];
 
-        // If no classes at all for today, hide the banner and return
         if (todaySchedule.length === 0) {
             currentClassBanner.style.display = 'none';
             return;
         }
 
         let currentClassFound = false;
-        let nextClassData = null; // Store next class data
+        let firstUpcomingClass = null;
 
-        document.querySelectorAll('.class-item').forEach((item, index) => {
-            item.classList.remove('current'); // Remove 'current' from all items first
+        for (let i = 0; i < todaySchedule.length; i++) {
+            const currentClassData = todaySchedule[i];
+            const item = document.querySelectorAll('.class-item')[i];
+            if (!item) continue;
 
-            const timeText = item.querySelector('.class-time').textContent;
-            const [startTime, endTime] = parseTimeRange(timeText);
+            item.classList.remove('current');
 
-            if (startTime <= currentTime && currentTime < endTime) { // Current class is ongoing
+            const timeText = currentClassData.time;
+            const [startTimeInMinutes, endTimeInMinutes] = parseTimeRange(timeText);
+            const startTimeInSeconds = startTimeInMinutes * 60;
+            const endTimeInSeconds = endTimeInMinutes * 60;
+
+            // Scenario 1: Class is ongoing and NOT in its very last minute (before the exact end minute starts)
+            // Display: "{subject code} ends in xx minutes!"
+            // Condition: current time is within class start and (end - 1 minute and 1 second)
+            if (currentTimeInSeconds >= startTimeInSeconds && currentTimeInSeconds < (endTimeInSeconds - 60)) {
                 item.classList.add('current');
                 currentClassFound = true;
-
-                const className = item.querySelector('.class-name').textContent.trim();
-                // Removed location display for current class as per request
-                currentClassText.textContent = `${className}`;
-
-                const timeLeft = endTime - currentTime;
-                const hoursLeft = Math.floor(timeLeft / 60);
-                const minsLeft = timeLeft % 60;
-
-                if (hoursLeft > 0) {
-                    timeLeftText.textContent = `Class Ending Soon! Ends in ${hoursLeft}h ${minsLeft}m`;
-                } else if (minsLeft > 0) {
-                    timeLeftText.textContent = `Class Ending Soon! Ends in ${minsLeft}m`;
-                } else {
-                    timeLeftText.textContent = `Class Ending Soon! Ends in < 1m`; // Updated phrasing
-                }
+                const timeLeftMinutes = Math.ceil((endTimeInSeconds - currentTimeInSeconds) / 60);
+                currentClassText.textContent = `${currentClassData.code} ends in ${timeLeftMinutes} minutes!`;
                 currentClassBanner.style.display = 'flex';
-                // No need to search for next class if current class is found, so we can exit early.
-                return; // Exit forEach early
-            } else if (startTime > currentTime && !currentClassFound && !nextClassData) {
-                // Only capture the first next class if no current class is found yet
-                nextClassData = {
-                    name: item.querySelector('.class-name').textContent.trim(),
-                    code: item.querySelector('.class-code').textContent.trim(),
-                    location: item.querySelector('.meta-item:nth-child(2)').textContent.trim(),
-                    startTime: startTime
-                };
+                timeLeftText.textContent = ''; // Clear timeLeftText for this format
+                return; // Banner set, exit
             }
-        });
-
-        if (!currentClassFound) {
-            if (nextClassData) {
-                // Display next class info
-                currentClassText.textContent = `${nextClassData.name} (${nextClassData.code})`;
-                const timeLeft = nextClassData.startTime - currentTime;
-                const hoursLeft = Math.floor(timeLeft / 60);
-                const minsLeft = timeLeft % 60;
-
-                if (hoursLeft > 0) {
-                    timeLeftText.textContent = `Next class starts in ${hoursLeft}h ${minsLeft}m at ${nextClassData.location}`;
+            // Scenario 2: Class is in its last minute OR has just ended (transition to next class info)
+            // Display: "Next: subject code class/lab at venue in xx minutes."
+            // Condition: current time is within (end - 1 minute) and end time of this class, or slightly after
+            else if (currentTimeInSeconds >= (endTimeInSeconds - 60) && currentTimeInSeconds < (endTimeInSeconds + 60)) { // up to 1 min after end
+                currentClassFound = true; // Mark as found to prevent falling into "upcomingNextClass" logic
+                const nextClassData = todaySchedule[i + 1];
+                if (nextClassData) {
+                    const [nextStartTimeInMinutes] = parseTimeRange(nextClassData.time);
+                    const timeToNextMinutes = Math.max(0, nextStartTimeInMinutes - currentTimeInMinutes);
+                    currentClassText.textContent = `Next: ${nextClassData.code} ${nextClassData.type} at ${nextClassData.location} in ${timeToNextMinutes} minutes.`;
+                    currentClassBanner.style.display = 'flex';
+                    timeLeftText.textContent = ''; // Clear timeLeftText for this format
                 } else {
-                    timeLeftText.textContent = `Next class starts in ${minsLeft}m at ${nextClassData.location}`;
+                    // Last minute of the very last class, or just after it ends.
+                    currentClassBanner.style.display = 'none';
                 }
+                return; // Banner set, exit
+            }
+            // Scenario 3: Class is in the future, and we haven't found the very next one yet
+            else if (currentTimeInSeconds < startTimeInSeconds && !firstUpcomingClass) {
+                firstUpcomingClass = currentClassData;
+            }
+        }
+
+        // If no current class was active (return was not called for Scenario 1 or 2)
+        if (!currentClassFound) {
+            if (firstUpcomingClass) {
+                // Display info for the first upcoming class
+                const [upcomingStartTimeInMinutes] = parseTimeRange(firstUpcomingClass.time);
+                const timeToNextMinutes = Math.max(0, upcomingStartTimeInMinutes - currentTimeInMinutes);
+                currentClassText.textContent = `Next: ${firstUpcomingClass.code} ${firstUpcomingClass.type} at ${firstUpcomingClass.location} in ${timeToNextMinutes} minutes.`;
                 currentClassBanner.style.display = 'flex';
+                timeLeftText.textContent = ''; // Clear timeLeftText for this format
             } else {
-                // All classes for today are over, hide the banner as per request
+                // No current class, and no upcoming classes (all classes for today are over)
                 currentClassBanner.style.display = 'none';
             }
         }
@@ -399,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return [startTime, endTime];
     }
 
-    // --- Notification Logic ---
+    // --- Notification Logic --- (unchanged)
     let notificationInterval;
 
     function requestNotificationPermission() {
@@ -438,15 +443,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const [startTime, endTime] = parseTimeRange(currentClass.time);
 
                 const notificationTriggerTime = endTime;
-                // Allow a small grace period around the exact end time
-                const notificationGraceStart = notificationTriggerTime;
-                const notificationGraceEnd = notificationTriggerTime + 1; // Notifies within 1 minute after end time
+                const gracePeriodStart = notificationTriggerTime - 1;
+                const gracePeriodEnd = notificationTriggerTime + 1;
 
-                if (currentTime >= notificationGraceStart && currentTime <= notificationGraceEnd) {
+                if (currentTime >= gracePeriodStart && currentTime <= gracePeriodEnd) {
                      const lastNotifiedKey = `lastNotification_${today}_${currentClass.code}_${endTime}`;
                      const lastNotifiedTime = localStorage.getItem(lastNotifiedKey);
 
-                     // Only notify if not notified recently (e.g., within the last 60 seconds to prevent spam)
                      if (!lastNotifiedTime || (now.getTime() - parseInt(lastNotifiedTime) > 60000)) {
                         const nextClass = todaySchedule[i + 1];
 
@@ -470,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function() {
                      }
                 }
             }
-        }, 60000); // Check every minute
+        }, 60000);
     }
 
     // Request permission when the page loads
@@ -480,11 +483,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update current class highlighting every 5 seconds for responsiveness
     setInterval(updateCurrentClass, 5000);
 
-    // Check for day change hourly
+    // Check for day change
     setInterval(() => {
         const newDayIndex = new Date().getDay();
         if (days[newDayIndex] !== currentDay) {
-            console.log("Day changed, re-scheduling notifications and updating schedule.");
+            console.log("Day changed, re-scheduling notifications.");
             const updatedNow = new Date();
             const updatedCurrentDayIndex = updatedNow.getDay();
             const updatedCurrentDay = days[updatedCurrentDayIndex];
@@ -494,7 +497,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dayDropdown.value = updatedCurrentDay;
 
             displaySchedule(updatedCurrentDay);
-            scheduleEndOfClassNotifications(); // Re-schedule notifications for the new day
+            scheduleEndOfClassNotifications();
         }
-    }, 3600000); // Check every hour (3600000 milliseconds)
+    }, 3600000);
 });
