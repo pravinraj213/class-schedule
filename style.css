@@ -1,11 +1,12 @@
+/* style.css – Updated with completely different box type, no specific edge colors, and unified colors for lab/theory */
 :root {
-  --primary-color: #6c1c9c;
+  --primary-color: #3e0f5d;
   --primary-light: rgba(108, 28, 156, 0.1);
   --secondary-color: #000101;
   --accent-color: #b57edc;
 
-  --text-color: #3e0f5d; /* Main text color for both themes */
-  --text-light: #64748b;
+  --text-color: #3e0f5d; /* Main text color for light theme */
+  --text-light: #64748b; /* Light text color for light theme */
   --background-color: #ffffff; /* Light theme background */
   --card-bg: #ffffff;
 
@@ -13,13 +14,15 @@
   --warning-color: #facc15;
   --danger-color: #ef4444;
 
+  /* Unified colors for lecture, lab, and tutorial */
   --lecture-color: var(--primary-color);
-  --lab-color: #9333ea;
+  --lab-color: var(--primary-color);
+  --tutorial-color: var(--primary-color);
 
-  --border-radius: 0.75rem;
-  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.03);
+  --border-radius: 1rem; /* Significantly more rounded corners for new box type */
+  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04); /* Softer, more pronounced shadow */
   --transition: all 0.3s ease;
-  --border-color: rgba(108, 28, 156, 0.2);
+  --border-color: rgba(108, 28, 156, 0.15); /* Lighter border color for a subtle look */
 }
 
 /* Reset & Base */
@@ -32,8 +35,8 @@
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   line-height: 1.6;
-  color: var(--text-color);
-  background-color: var(--background-color);
+  color: var(--text-color); /* Uses :root text-color based on theme */
+  background-color: var(--background-color); /* Uses :root background-color based on theme */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -69,7 +72,7 @@ body {
 
 .header-text p {
   font-size: 0.9rem;
-  color: var(--text-light);
+  color: var(--text-light); /* Uses :root text-light based on theme */
   font-weight: 500;
 }
 
@@ -82,19 +85,28 @@ body {
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: var(--border-radius);
-  border: 1px dashed var(--border-color);
-  background-color: var(--card-bg);
-  color: var(--text-color);
+  border: 1px solid var(--border-color); /* Uses :root border-color based on theme */
+  background-color: var(--card-bg); /* Uses :root card-bg based on theme */
+  color: var(--text-color); /* Uses :root text-color based on theme */
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition);
   appearance: none;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%236c1c9c' stroke-width='2' viewBox='0 0 24 24'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+  /* SVG color uses primary-color */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%233e0f5d' stroke-width='2' viewBox='0 0 24 24'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1em;
 }
+
+/* Dark mode override for SVG arrow color in dropdown */
+@media (prefers-color-scheme: dark) {
+    .day-dropdown {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23b57edc' stroke-width='2' viewBox='0 0 24 24'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e"); /* Accent color for dark mode arrow */
+    }
+}
+
 
 .day-dropdown:focus {
   outline: none;
@@ -113,6 +125,7 @@ body {
   align-items: center;
   justify-content: space-between;
   animation: fadeIn 0.3s ease;
+  box-shadow: var(--box-shadow);
 }
 
 .current-class-info {
@@ -143,38 +156,20 @@ body {
 }
 
 .class-item {
-  background-color: var(--card-bg);
+  background-color: var(--card-bg); /* Uses :root card-bg based on theme */
   border-radius: var(--border-radius);
   padding: 1.25rem;
   box-shadow: var(--box-shadow);
-  border: 1px dashed var(--border-color);
+  border: 1px solid var(--border-color); /* Uses :root border-color based on theme */
   position: relative;
   overflow: hidden;
   transition: var(--transition);
 }
 
-.class-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background-color: var(--lecture-color);
-  transition: var(--transition);
-}
-
-.class-item.lab::before {
-  background-color: var(--lab-color);
-}
-
-.class-item.tutorial::before {
-  background-color: var(--tutorial-color);
-}
-
+/* No specific class-type borders */
 .class-item.current {
   transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.15), 0 5px 10px -2px rgba(0, 0, 0, 0.08);
   border: 2px solid var(--primary-color);
 }
 
@@ -183,7 +178,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: var(--text-light);
+  color: var(--text-light); /* Uses :root text-light based on theme */
   margin-bottom: 0.5rem;
 }
 
@@ -200,16 +195,6 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.class-item.lab .class-type {
-  background-color: rgba(147, 51, 234, 0.1);
-  color: var(--lab-color);
-}
-
-.class-item.tutorial .class-type {
-  background-color: rgba(244, 63, 94, 0.1);
-  color: var(--tutorial-color);
-}
-
 .class-name {
   font-size: 1.25rem;
   font-weight: 700;
@@ -218,7 +203,7 @@ body {
 
 .class-code {
   font-size: 0.9rem;
-  color: var(--text-light);
+  color: var(--text-light); /* Uses :root text-light based on theme */
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -234,7 +219,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--text-light);
+  color: var(--text-light); /* Uses :root text-light based on theme */
 }
 
 .meta-item i {
@@ -251,7 +236,7 @@ body {
   justify-content: center;
   text-align: center;
   padding: 3rem 1rem;
-  color: var(--text-light);
+  color: var(--text-light); /* Uses :root text-light based on theme */
 }
 
 .no-classes i {
@@ -268,12 +253,12 @@ body {
 .app-footer.private-note {
   margin-top: 3rem;
   padding: 1rem;
-  background-color: var(--card-bg);
-  color: var(--text-light);
+  background-color: var(--card-bg); /* Uses :root card-bg based on theme */
+  color: var(--text-light); /* Uses :root text-light based on theme */
   text-align: center;
   font-size: 0.85rem;
   font-weight: 500;
-  border-top: 1px dashed var(--border-color);
+  border-top: 1px solid var(--border-color); /* Uses :root border-color based on theme */
   border-radius: var(--border-radius) var(--border-radius) 0 0;
   opacity: 0.9;
 }
@@ -316,36 +301,42 @@ body {
   }
 }
 
-/* Dark Mode */
+/* Dark Mode Overrides */
 @media (prefers-color-scheme: dark) {
   :root {
-    --text-color: #3e0f5d; /* Same main text color in dark mode */
-    --text-light: #a78bfa;
+    --text-color: #f8fafc; /* Very light off-white for main text in dark theme */
+    --text-light: #94a3b8; /* A good contrasting light gray for secondary text */
     --background-color: #000000; /* Pure black background */
-    --card-bg: #1a1a1a;
-    --primary-light: rgba(108, 28, 156, 0.15);
-    --border-color: rgba(108, 28, 156, 0.3);
+    --card-bg: #1a1a1a; /* Very dark gray for card backgrounds */
+    --primary-light: rgba(108, 28, 156, 0.15); /* Keep primary light for subtle highlights */
+    --border-color: rgba(108, 28, 156, 0.3); /* Ensure consistency for dark mode borders */
   }
 
+  /* Specific dark mode adjustments for elements using the new text colors */
   .day-dropdown {
-    background-color: #2d2d2d;
-    color: white;
+    background-color: #2d2d2d; /* Slightly lighter than card-bg for contrast */
+    color: var(--text-color); /* Uses new dark mode text-color */
     border-color: #3d3d3d;
   }
 
-  .meta-item {
-    color: #d1d5db;
-  }
-
-  .class-time,
-  .class-code {
-    color: #a78bfa;
-  }
+  /* These elements now correctly inherit from :root --text-light */
+  /*
+  .meta-item { color: #d1d5db; }
+  .class-time, .class-code { color: #a78bfa; }
+  */
 
   .app-footer.private-note {
     background-color: #1a1a1a;
-    color: #a78bfa;
+    color: var(--text-light); /* Uses new dark mode text-light */
     border-color: rgba(167, 139, 250, 0.2);
+  }
+
+  /* Ensure class-item borders remain consistent in dark mode */
+  .class-item {
+      border: 1px solid var(--border-color);
+  }
+  .class-item.current {
+      border: 2px solid var(--primary-color);
   }
 }
 
