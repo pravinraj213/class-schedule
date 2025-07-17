@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Class data for each day (unchanged)
+    // Class data for each day
     const schedule = {
         monday: [
             {
@@ -202,12 +202,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 faculty: "Dr. Vishnu Kumar A",
                 location: "A208 (A Block)"
             }
-        ],
-        saturday: [],
-        sunday: []
+        ]
     };
 
     // Get current day and set up the schedule
+    // Removed 'sunday' and 'saturday' from the arrays
     const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
