@@ -1,0 +1,248 @@
+{
+  "schedule": {
+    "monday": [
+      {
+        "time": "8:00 – 8:50 AM",
+        "name": "Environmental Sciences",
+        "code": "MC23313",
+        "type": "lecture",
+        "faculty": "Mrs. Dr. D. Udhayakumari",
+        "location": "A102 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "9:00 – 9:50 AM",
+        "name": "Database Technology",
+        "code": "CB23333",
+        "type": "lecture",
+        "faculty": "Mrs. Rajammal K",
+        "location": "A102 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "10:00 – 11:40 AM",
+        "name": "OOP Using Java",
+        "code": "CS23333",
+        "type": "lecture",
+        "faculty": "Ms. Mistica Dass",
+        "location": "DG03 (D Block)",
+        "duration": "100 minutes"
+      },
+      {
+        "time": "12:00 – 12:50 PM",
+        "name": "Software Engineering",
+        "code": "CB23332",
+        "type": "lecture",
+        "faculty": "Dr. Manikandan Thirumalaisamy",
+        "location": "A102 (A Block)",
+        "duration": "50 minutes"
+      }
+    ],
+    "tuesday": [
+      {
+        "time": "8:00 – 8:50 AM",
+        "name": "Formal Language & Automata Theory",
+        "code": "CB23311",
+        "type": "lecture",
+        "faculty": "Dr. Vishnu Kumar A",
+        "location": "B410 (B Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "9:00 – 9:50 AM",
+        "name": "Formal Language & Automata Theory",
+        "code": "CB23311",
+        "type": "lecture",
+        "faculty": "Dr. Vishnu Kumar A",
+        "location": "B410 (B Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "10:00 – 10:50 AM",
+        "name": "Computational Statistics",
+        "code": "CB23331",
+        "type": "lecture",
+        "faculty": "Mrs. R Nathiya",
+        "location": "A203 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "11:00 – 11:50 AM",
+        "name": "Computational Statistics",
+        "code": "CB23331",
+        "type": "lecture",
+        "faculty": "Mrs. R Nathiya",
+        "location": "A203 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "12:00 – 12:50 PM",
+        "name": "Software Engineering",
+        "code": "CB23332",
+        "type": "lecture",
+        "faculty": "Dr. Manikandan Thirumalaisamy",
+        "location": "A202 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "1:20 – 3:00 PM",
+        "name": "Database Technology Lab (Batch 2)",
+        "code": "CB23333",
+        "type": "lab",
+        "faculty": "Mrs. Rajammal K",
+        "location": "TLFL2 (Techlounge)",
+        "duration": "100 minutes"
+      },
+      {
+        "time": "3:00 – 4:40 PM",
+        "name": "Software Engineering Lab (Batch 1)",
+        "code": "CB23332",
+        "type": "lab",
+        "faculty": "Dr. Manikandan Thirumalaisamy",
+        "location": "TLFL2 (Techlounge)",
+        "duration": "100 minutes"
+      }
+    ],
+    "wednesday": [
+      {
+        "time": "8:00 – 8:50 AM",
+        "name": "Computer Organization & Architecture",
+        "code": "CB23312",
+        "type": "lecture",
+        "faculty": "Mrs. Jayanthi M",
+        "location": "A302 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "9:00 – 9:50 AM",
+        "name": "Computer Organization & Architecture",
+        "code": "CB23312",
+        "type": "lecture",
+        "faculty": "Mrs. Jayanthi M",
+        "location": "A211 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "10:00 – 10:50 AM",
+        "name": "OOP Using Java",
+        "code": "CS23333",
+        "type": "lecture",
+        "faculty": "Ms. Mistica Dass",
+        "location": "A209 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "11:00 – 11:50 AM",
+        "name": "OOP Using Java",
+        "code": "CS23333",
+        "type": "lecture",
+        "faculty": "Ms. Mistica Dass",
+        "location": "A209 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "12:00 – 12:50 PM",
+        "name": "Database Technology",
+        "code": "CB23333",
+        "type": "lecture",
+        "faculty": "Mrs. Rajammal K",
+        "location": "A205 (A Block)",
+        "duration": "50 minutes"
+      }
+    ],
+    "thursday": [
+      {
+        "time": "8:00 – 8:50 AM",
+        "name": "Environmental Sciences",
+        "code": "MC23313",
+        "type": "lecture",
+        "faculty": "Mrs. Dr. D. Udhayakumari",
+        "location": "A209 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "9:00 – 9:50 AM",
+        "name": "Environmental Sciences",
+        "code": "MC23313",
+        "type": "lecture",
+        "faculty": "Mrs. Dr. D. Udhayakumari",
+        "location": "A209 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "10:00 – 10:50 AM",
+        "name": "Computer Organization & Architecture",
+        "code": "CB23312",
+        "type": "lecture",
+        "faculty": "Mrs. Jayanthi M",
+        "location": "A205 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "11:00 – 11:50 AM",
+        "name": "Database Technology",
+        "code": "CB23333",
+        "type": "lecture",
+        "faculty": "Mrs. Rajammal K",
+        "location": "A208 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "12:00 – 12:50 PM",
+        "name": "Computational Statistics",
+        "code": "CB23331",
+        "type": "lecture",
+        "faculty": "Mrs. R Nathiya",
+        "location": "A108 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "1:20 – 3:00 PM",
+        "name": "Computational Statistics Lab (Batch 2)",
+        "code": "CB23331",
+        "type": "lab",
+        "faculty": "Mrs. R Nathiya",
+        "location": "TLGL3 (Techlounge)",
+        "duration": "100 minutes"
+      }
+    ],
+    "friday": [
+      {
+        "time": "8:00 – 9:40 AM",
+        "name": "Java Lab (Batch 2)",
+        "code": "CS23333",
+        "type": "lab",
+        "faculty": "Ms. Mistica Dass",
+        "location": "KFR03 (K Block)",
+        "duration": "100 minutes"
+      },
+      {
+        "time": "12:00 – 12:50 PM",
+        "name": "OOP Using Java",
+        "code": "CS23333",
+        "type": "lecture",
+        "faculty": "Ms. Mistica Dass",
+        "location": "A102 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "1:00 – 1:50 PM",
+        "name": "Software Engineering",
+        "code": "CB23332",
+        "type": "lecture",
+        "faculty": "Dr. Manikandan Thirumalaisamy",
+        "location": "A211 (A Block)",
+        "duration": "50 minutes"
+      },
+      {
+        "time": "2:00 – 2:50 PM",
+        "name": "Formal Language & Automata Theory",
+        "code": "CB23311",
+        "type": "lecture",
+        "faculty": "Dr. Vishnu Kumar A",
+        "location": "A210 (A Block)",
+        "duration": "50 minutes"
+      }
+    ]
+  }
+}

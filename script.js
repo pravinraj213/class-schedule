@@ -1,450 +1,164 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Class data for each day
-    const schedule = {
-        monday: [
-            {
-                time: "8:00 – 8:50 AM",
-                name: "Environmental Sciences",
-                code: "MC23313",
-                type: "lecture",
-                faculty: "Mrs. Dr. D. Udhayakumari",
-                location: "A102 (A Block)"
-            },
-            {
-                time: "9:00 – 9:50 AM",
-                name: "Database Technology",
-                code: "CB23333",
-                type: "lecture",
-                faculty: "Mrs. Rajammal K",
-                location: "A102 (A Block)"
-            },
-            {
-                time: "10:00 – 11:40 AM",
-                name: "OOP Using Java",
-                code: "CS23333",
-                type: "lecture",
-                faculty: "Ms. Mistica Dass",
-                location: "DG03 (D Block)"
-            },
-            {
-                time: "12:00 – 12:50 PM",
-                name: "Software Engineering",
-                code: "CB23332",
-                type: "lecture",
-                faculty: "Dr. Manikandan Thirumalaisamy",
-                location: "A102 (A Block)"
-            }
-        ],
-        tuesday: [
-            {
-                time: "8:00 – 9:50 AM",
-                name: "Formal Language & Automata Theory",
-                code: "CB23311",
-                type: "lecture",
-                faculty: "Dr. Vishnu Kumar A",
-                location: "B322 (B Block)"
-            },
-            {
-                time: "10:00 – 11:50 AM",
-                name: "Computational Statistics",
-                code: "CB23331",
-                type: "lecture",
-                faculty: "Mrs. R Nathiya",
-                location: "A110 (A Block)"
-            },
-            {
-                time: "12:00 – 12:50 PM",
-                name: "Software Engineering",
-                code: "CB23332",
-                type: "lecture",
-                faculty: "Dr. Manikandan Thirumalaisamy",
-                location: "A202 (A Block)"
-            },
-            {
-                time: "1:20 – 3:00 PM",
-                name: "Database Technology Lab (Batch 2)",
-                code: "CB23333",
-                type: "lab",
-                faculty: "Mrs. Rajammal K",
-                location: "TLFL2 (Techlounge)"
-            },
-            {
-                time: "3:00 – 4:40 PM",
-                name: "Software Engineering Lab (Batch 1)",
-                code: "CB23332",
-                type: "lab",
-                faculty: "Dr. Manikandan Thirumalaisamy",
-                location: "TLFL2 (Techlounge)"
-            }
-        ],
-        wednesday: [
-            {
-                time: "8:00 – 8:50 AM",
-                name: "Computer Organization & Architecture",
-                code: "CB23312",
-                type: "lecture",
-                faculty: "Mrs. Jayanthi M",
-                location: "A209 (A Block)"
-            },
-            {
-                time: "9:00 – 9:50 AM",
-                name: "Computer Organization & Architecture",
-                code: "CB23312",
-                type: "lecture",
-                faculty: "Mrs. Jayanthi M",
-                location: "A208 (A Block)"
-            },
-            {
-                time: "10:00 – 10:50 AM",
-                name: "OOP Using Java",
-                code: "CS23333",
-                type: "lecture",
-                faculty: "Ms. Mistica Dass",
-                location: "A205 (A Block)"
-            },
-            {
-                time: "11:00 – 11:50 AM",
-                name: "OOP Using Java",
-                code: "CS23333",
-                type: "lecture",
-                faculty: "Ms. Mistica Dass",
-                location: "A205 (A Block)"
-            },
-            {
-                time: "12:00 – 12:50 PM",
-                name: "Database Technology",
-                code: "CB23333",
-                type: "lecture",
-                faculty: "Mrs. Rajammal K",
-                location: "A205 (A Block)"
-            }
-        ],
-        thursday: [
-            {
-                time: "8:00 – 8:50 AM",
-                name: "Environmental Sciences",
-                code: "MC23313",
-                type: "lecture",
-                faculty: "Mrs. Dr. D. Udhayakumari",
-                location: "A209 (A Block)"
-            },
-            {
-                time: "9:00 – 9:50 AM",
-                name: "Environmental Sciences",
-                code: "MC23313",
-                type: "lecture",
-                faculty: "Mrs. Dr. D. Udhayakumari",
-                location: "A209 (A Block)"
-            },
-            {
-                time: "10:00 – 10:50 AM",
-                name: "Computer Organization & Architecture",
-                code: "CB23312",
-                type: "lecture",
-                faculty: "Mrs. Jayanthi M",
-                location: "A203 (A Block)"
-            },
-            {
-                time: "11:00 – 11:50 AM",
-                name: "Database Technology",
-                code: "CB23333",
-                type: "lecture",
-                faculty: "Mrs. Rajammal K",
-                location: "A205 (A Block)"
-            },
-            {
-                time: "12:00 – 12:50 PM",
-                name: "Computational Statistics",
-                code: "CB23331",
-                type: "lecture",
-                faculty: "Mrs. R Nathiya",
-                location: "A103 (A Block)"
-            },
-            {
-                time: "1:20 – 3:00 PM",
-                name: "Computational Statistics Lab (Batch 2)",
-                code: "CB23331",
-                type: "lab",
-                faculty: "Mrs. R Nathiya",
-                location: "TLGL3 (Techlounge)"
-            }
-        ],
-        friday: [
-            {
-                time: "8:00 – 9:40 AM",
-                name: "Java Lab (Batch 2)",
-                code: "CS23333",
-                type: "lab",
-                faculty: "Ms. Mistica Dass",
-                location: "KFR03 (K Block)"
-            },
-            {
-                time: "12:00 – 12:50 PM",
-                name: "OOP Using Java",
-                code: "CS23333",
-                type: "lecture",
-                faculty: "Ms. Mistica Dass",
-                location: "A102 (A Block)"
-            },
-            {
-                time: "1:00 – 1:50 PM",
-                name: "Software Engineering",
-                code: "CB23332",
-                type: "lecture",
-                faculty: "Dr. Manikandan Thirumalaisamy",
-                location: "A210 (A Block)"
-            },
-            {
-                time: "2:00 – 2:50 PM",
-                name: "Formal Language & Automata Theory",
-                code: "CB23311",
-                type: "lecture",
-                faculty: "Dr. Vishnu Kumar A",
-                location: "A208 (A Block)"
-            }
-        ]
-    };
-
-    // Get current day and set up the schedule
+    // Constants
     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
     const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                       'July', 'August', 'September', 'October', 'November', 'December'];
 
-    const now = new Date();
-    // Adjust currentDayIndex as Sunday (0) and Saturday (6) are no longer in the array
-    let currentDayIndex = now.getDay();
-    if (currentDayIndex === 0) { // If Sunday, default to Monday
-        currentDayIndex = 1;
-    } else if (currentDayIndex === 6) { // If Saturday, default to Friday
-        currentDayIndex = 5;
-    }
-    // Adjust to be 0-indexed for the new 'days' array
-    currentDayIndex = (currentDayIndex === 1) ? 0 : (currentDayIndex === 2) ? 1 : (currentDayIndex === 3) ? 2 : (currentDayIndex === 4) ? 3 : (currentDayIndex === 5) ? 4 : 0; // Simplified for Monday-Friday
-    
-    let currentDay = days[currentDayIndex];
-
-    // Set up date display (Always for the current day)
+    // DOM Elements
     const currentDateElement = document.getElementById('currentDate');
-    currentDateElement.textContent = `${dayNames[currentDayIndex]}, ${monthNames[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
-
-    // Set up dropdown
     const dayDropdown = document.getElementById('dayDropdown');
-    dayDropdown.value = currentDay;
+    const classesContainer = document.getElementById('classesContainer');
+    const currentClassBanner = document.getElementById('currentClassBanner');
+    const currentClassText = document.getElementById('currentClassText');
+    const timeLeftText = document.getElementById('timeLeftText');
 
-    // Display schedule for the selected day
-    function displaySchedule(day) {
-        const classesContainer = document.getElementById('classesContainer');
-        const daySchedule = schedule[day] || [];
+    // Global schedule variable
+    let schedule = {};
 
-        // Clear previous classes
-        classesContainer.innerHTML = '';
-
-        // Control currentDateElement visibility
-        if (day === currentDay) {
-            currentDateElement.style.display = 'block'; // Or 'flex' if preferred by CSS
-        } else {
-            currentDateElement.style.display = 'none';
-        }
-
-        if (daySchedule.length === 0) {
-            classesContainer.innerHTML = `
-                <div class="no-classes">
-                    <p>No classes scheduled for this day</p>
-                </div>
-            `;
-        } else {
-            daySchedule.forEach(cls => {
-                const classItem = document.createElement('li');
-                classItem.className = `class-item ${cls.type}`;
-
-                classItem.innerHTML = `
-                    <div class="class-time">
-                        <i class="far fa-clock"></i> ${cls.time}
-                    </div>
-                    <span class="class-type">${cls.type === 'lab' ? 'Lab' : cls.type === 'tutorial' ? 'Tutorial' : 'Lecture'}</span>
-                    <h3 class="class-name">
-                        ${cls.name}
-                    </h3>
-                    <div class="class-code">${cls.code}</div>
-                    <div class="class-meta">
-                        <div class="meta-item">
-                            <i class="fas fa-user-tie"></i> ${cls.faculty}
-                        </div>
-                        <div class="meta-item">
-                            <i class="fas fa-map-marker-alt"></i> ${cls.location}
-                        </div>
-                    </div>
-                `;
-
-                classesContainer.appendChild(classItem);
-            });
-        }
-
-        // If viewing today's schedule, highlight current class
-        if (day === currentDay) {
-            updateCurrentClass();
-        } else {
-            // Hide current class banner if not viewing today
-            document.getElementById('currentClassBanner').style.display = 'none'; // Keep this as it's for non-current day view
-            // Ensure no highlighting or dimming on other days
-            document.querySelectorAll('.class-item').forEach(item => {
-                item.classList.remove('current');
-                item.classList.remove('past'); // Remove 'past' class for other days
-            });
-        }
-    }
-
-    // Initialize with today's schedule
-    displaySchedule(currentDay);
-
-    // Handle day selection change
-    dayDropdown.addEventListener('change', function() {
-        const selectedDay = this.value;
-        displaySchedule(selectedDay);
-    });
-
-    // Highlight current class and manage banner display
-    function updateCurrentClass() {
-        const now = new Date();
-        const currentHour = now.getHours();
-        const currentMinute = now.getMinutes();
-        const currentSecond = now.getSeconds();
-        const currentTimeInMinutes = currentHour * 60 + currentMinute;
-        const currentTimeInSeconds = currentTimeInMinutes * 60 + currentSecond;
-
-        const currentClassBanner = document.getElementById('currentClassBanner');
-        const currentClassText = document.getElementById('currentClassText');
-        const timeLeftText = document.getElementById('timeLeftText');
-
-        const todaySchedule = schedule[days[now.getDay()]] || [];
-        const classItems = document.querySelectorAll('.class-item');
-
-        // Always display the banner for the current day
-        currentClassBanner.style.display = 'flex';
-
-        // Reset all classes: remove 'current' and 'past' from all items
-        classItems.forEach(item => {
-            item.classList.remove('current');
-            item.classList.remove('past');
+    // Fetch schedule data
+    fetch('schedule.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            schedule = data.schedule;
+            initializeApp();
+        })
+        .catch(error => {
+            console.error('Error loading schedule:', error);
+            classesContainer.innerHTML = '<div class="error">Failed to load schedule. Please try again later.</div>';
         });
 
-        if (todaySchedule.length === 0) {
-            currentClassText.textContent = "No classes scheduled for today.";
-            timeLeftText.textContent = '';
+    function initializeApp() {
+        // Get current day
+        const now = new Date();
+        let currentDayIndex = now.getDay();
+        currentDayIndex = (currentDayIndex >= 1 && currentDayIndex <= 5) ? currentDayIndex - 1 : 0;
+        const currentDay = days[currentDayIndex];
+
+        // Set up date display
+        currentDateElement.textContent = `${dayNames[currentDayIndex]}, ${monthNames[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+        dayDropdown.value = currentDay;
+
+        // Display initial schedule
+        displaySchedule(currentDay);
+
+        // Event listeners
+        dayDropdown.addEventListener('change', function() {
+            displaySchedule(this.value);
+        });
+
+        // Update current class every minute
+        setInterval(() => {
+            if (dayDropdown.value === currentDay) {
+                updateCurrentClass();
+            }
+        }, 60000);
+    }
+
+    function displaySchedule(day) {
+        if (!schedule[day]) {
+            classesContainer.innerHTML = '<div class="no-classes">No schedule data for this day</div>';
             return;
         }
+
+        const daySchedule = schedule[day];
+        classesContainer.innerHTML = '';
+
+        if (daySchedule.length === 0) {
+            classesContainer.innerHTML = '<div class="no-classes">No classes scheduled</div>';
+            return;
+        }
+
+        daySchedule.forEach(cls => {
+            const classItem = document.createElement('li');
+            classItem.className = `class-item ${cls.type}`;
+            classItem.innerHTML = `
+                <div class="class-time">
+                    <i class="far fa-clock"></i> ${cls.time}
+                </div>
+                <span class="class-type">${cls.type === 'lab' ? 'Lab' : 'Lecture'}</span>
+                <h3 class="class-name">${cls.name}</h3>
+                <div class="class-code">${cls.code}</div>
+                <div class="class-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i> ${cls.faculty}
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt"></i> ${cls.location}
+                    </div>
+                </div>
+            `;
+            classesContainer.appendChild(classItem);
+        });
+
+        if (day === days[new Date().getDay() - 1]) {
+            updateCurrentClass();
+        }
+    }
+
+    function updateCurrentClass() {
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        const currentDay = days[now.getDay() - 1];
+        const daySchedule = schedule[currentDay] || [];
+
+        // Reset all classes
+        document.querySelectorAll('.class-item').forEach(item => {
+            item.classList.remove('current', 'past');
+        });
 
         let currentClassFound = false;
         let nextClassFound = false;
 
-        // Find the current or next upcoming class for the banner
-        for (let i = 0; i < todaySchedule.length; i++) {
-            const classData = todaySchedule[i];
-            const item = classItems[i];
-            if (!item) continue;
+        daySchedule.forEach((cls, index) => {
+            const [startTime, endTime] = parseTimeRange(cls.time);
+            const classItem = document.querySelectorAll('.class-item')[index];
 
-            const timeText = classData.time;
-            const [startTimeInMinutes, endTimeInMinutes] = parseTimeRange(timeText);
-            const startTimeInSeconds = startTimeInMinutes * 60;
-            const endTimeInSeconds = endTimeInMinutes * 60;
-
-            // Case 1: Class is currently active
-            if (currentTimeInSeconds >= startTimeInSeconds && currentTimeInSeconds < endTimeInSeconds) {
-                item.classList.add('current');
+            if (currentTime >= startTime && currentTime < endTime) {
+                classItem.classList.add('current');
                 currentClassFound = true;
-                const minutesToEnd = Math.ceil((endTimeInSeconds - currentTimeInSeconds) / 60);
-                currentClassText.textContent = `${classData.name} ends in ${minutesToEnd} minutes!`;
-                timeLeftText.textContent = ''; // Clear time left for current class
-                break; // Found the current class, set banner and exit loop
-            }
-            // Case 2: Class is upcoming (and no current class found yet)
-            else if (currentTimeInSeconds < startTimeInSeconds && !currentClassFound && !nextClassFound) {
-                const timeToNextMinutes = Math.max(0, startTimeInMinutes - currentTimeInMinutes);
-                currentClassText.textContent = `Next: ${classData.name} at ${classData.location} in ${timeToNextMinutes} minutes.`;
-                timeLeftText.textContent = ''; // Clear time left for next class
+                const minutesLeft = endTime - currentTime;
+                currentClassText.textContent = `${cls.name} ends in ${minutesLeft} min`;
+            } 
+            else if (currentTime < startTime && !currentClassFound && !nextClassFound) {
                 nextClassFound = true;
-                // DO NOT break here yet, as we still need to iterate to handle past classes below.
+                const minutesUntil = startTime - currentTime;
+                currentClassText.textContent = `Next: ${cls.name} in ${minutesUntil} min`;
             }
-        }
+            else if (currentTime > endTime) {
+                classItem.classList.add('past');
+            }
+        });
 
-        // If after checking all classes, no current or next class was found (i.e., all classes are over for the day)
         if (!currentClassFound && !nextClassFound) {
-            currentClassText.textContent = "No more classes today.";
-            timeLeftText.textContent = '';
-        }
-
-        // Apply 'past' dimming if applicable (only for current day view)
-        const isWithinWorkingHours = currentClassFound || nextClassFound; // Define working hours based on if there's a current or upcoming class
-
-        for (let i = 0; i < todaySchedule.length; i++) {
-            const classData = todaySchedule[i];
-            const item = classItems[i];
-            if (!item) continue;
-
-            const timeText = classData.time;
-            const [startTimeInMinutes, endTimeInMinutes] = parseTimeRange(timeText);
-            const endTimeInSeconds = endTimeInMinutes * 60;
-
-            // If the class is in the past AND we are currently within the schedule's working hours
-            // AND the class is not the currently highlighted 'current' class
-            if (currentTimeInSeconds > endTimeInSeconds && isWithinWorkingHours && !item.classList.contains('current')) {
-                item.classList.add('past');
-            }
+            currentClassText.textContent = "No more classes today";
         }
     }
 
     function parseTimeRange(timeText) {
-        // Example: "8:00 – 8:50 AM" or "12:00 – 12:50 PM"
-        const timeParts = timeText.match(/(\d{1,2}):(\d{2}) – (\d{1,2}):(\d{2}) (AM|PM)/i);
-        if (!timeParts) return [0, 0];
+        const timeMatch = timeText.match(/(\d{1,2}):(\d{2})\s*–\s*(\d{1,2}):(\d{2})(?:\s*(AM|PM))?/i);
+        if (!timeMatch) return [0, 0];
 
-        let startHour = parseInt(timeParts[1]);
-        const startMinute = parseInt(timeParts[2]);
-        let endHour = parseInt(timeParts[3]);
-        const endMinute = parseInt(timeParts[4]);
-        const period = timeParts[5].toUpperCase();
+        let startHour = parseInt(timeMatch[1]);
+        const startMinute = parseInt(timeMatch[2]);
+        let endHour = parseInt(timeMatch[3]);
+        const endMinute = parseInt(timeMatch[4]);
+        const period = timeMatch[5]?.toUpperCase();
 
-        // Adjust for AM/PM to 24-hour format
+        // Convert to 24-hour format
         if (period === 'PM' && startHour !== 12) startHour += 12;
-        if (period === 'AM' && startHour === 12) startHour = 0; // 12 AM is 00:00
+        if (period === 'AM' && startHour === 12) startHour = 0;
         if (period === 'PM' && endHour !== 12) endHour += 12;
-        if (period === 'AM' && endHour === 12) endHour = 0; // 12 AM is 00:00
+        if (period === 'AM' && endHour === 12) endHour = 0;
 
-        const startTime = startHour * 60 + startMinute;
-        const endTime = endHour * 60 + endMinute;
-
-        return [startTime, endTime];
+        return [
+            startHour * 60 + startMinute,
+            endHour * 60 + endMinute
+        ];
     }
-
-    // Update current class highlighting every 5 seconds for responsiveness
-    setInterval(updateCurrentClass, 5000);
-
-    // Check for day change
-    setInterval(() => {
-        const newDayIndex = new Date().getDay();
-        const updatedNow = new Date();
-        // Adjust for new 'days' array indexing
-        let adjustedNewDayIndex = newDayIndex;
-        if (adjustedNewDayIndex === 0) { // Sunday
-            adjustedNewDayIndex = 0; // Default to Monday's index in the new array (0)
-        } else if (adjustedNewDayIndex === 6) { // Saturday
-            adjustedNewDayIndex = 4; // Default to Friday's index in the new array (4)
-        } else { // Monday-Friday (1-5) becomes 0-4
-             adjustedNewDayIndex = adjustedNewDayIndex - 1;
-        }
-
-        const updatedCurrentDay = days[adjustedNewDayIndex];
-
-        // Only update currentDay variable if the day has actually changed
-        if (updatedCurrentDay !== currentDay) {
-            currentDay = updatedCurrentDay; // Update the currentDay variable
-            console.log("Day changed, updating schedule.");
-
-            // Update the dropdown value to match the new current day
-            dayDropdown.value = currentDay;
-
-            // Re-display the schedule for the new current day.
-            displaySchedule(currentDay);
-        }
-    }, 3600000); // Check every hour for a day change
 });
